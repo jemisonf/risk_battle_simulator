@@ -1,3 +1,4 @@
+#include <iostream>
 #include <random>
 #include "rolls.h"
 
@@ -22,15 +23,33 @@ void Rolls::sort() {
   }
 }
 
+
 void Rolls::generate_rolls() {
-  for (auto roll : this->roll_values) 
+  for (int& roll : this->roll_values) {
     roll = this->get_roll();
+  }
 }
 
 Rolls::Rolls(int num_rolls) {
   this->roll_values = std::vector<int>(num_rolls);
   this->generate_rolls();
   this->sort();
+}
+
+Rolls::Rolls() {
+  this->roll_values = std::vector<int>(0); 
+}
+
+Rolls::Rolls(const Rolls & new_rolls) {
+  this->copy(new_rolls);
+}
+
+void Rolls::operator=(const Rolls & new_rolls) {
+  this->copy(new_rolls);
+}
+
+void Rolls::copy(const Rolls & new_rolls) {
+  this->roll_values = std::vector<int>(new_rolls.roll_values);
 }
 
 int Rolls::First() {
